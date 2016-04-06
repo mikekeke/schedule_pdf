@@ -1,8 +1,6 @@
 package ru.mikekekeke.kostromatransport.schedule;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,25 +12,25 @@ import android.widget.TextView;
 import ru.mikekekeke.kostromatransport.schedule.async_tasks.LoadPDFsAsync;
 import ru.mikekekeke.kostromatransport.schedule.async_tasks.LoadSchemeAsync;
 import ru.mikekekeke.kostromatransport.schedule.dialogs.LoadDialog;
-import ru.mikekekeke.kostromatransport.schedule.exceptions.FileLoadException;
 import ru.mikekekeke.kostromatransport.schedule.model.DataScheme;
 import ru.mikekekeke.kostromatransport.schedule.model.ScheduleItem;
 import ru.mikekekeke.kostromatransport.schedule.utils.JsonParser;
-import ru.mikekekeke.kostromatransport.schedule.utils.Loader;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StartActivity extends AppCompatActivity
                                 implements LoadSchemeAsync.LoadSchemeListener,
-                                            LoadPDFsAsync.LoadPDFsListener{
+                                            LoadPDFsAsync.LoadPDFsListener,
+        LoadDialog.LoadDialogListener{
 
-    public static final String PDF_URL = "ru.mikekekeke.kostromatransport.PDF_URL";
     public static final String RELOAD = "ru.mikekekeke.kostromatransport.RELOAD";
     Button loadBtn;
     TextView feedbackTxt;
+    private boolean reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,32 +43,28 @@ public class StartActivity extends AppCompatActivity
 
         feedbackTxt = (TextView) findViewById(R.id.mainTxt);
         loadBtn = (Button) findViewById(R.id.buttonLoad);
-        boolean reload = getIntent().getBooleanExtra(RELOAD, false);
-        initialize(reload);
+        reload = getIntent().getBooleanExtra(RELOAD, false);
+        initialize();
         }
 
-    private void initialize(boolean reload) {
+    private void initialize() {
         File fileScheme = DataScheme.schemeFile;
         if (fileScheme.exists() && !reload){
             try {
-                checkImageLoadStatus(fileScheme);
+                checkImageLoadStatus(fileScheme, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            LoadDialog.newInstance(R.string.need_load_files).show(getSupportFragmentManager(), "dialog");
+            LoadDialog.newInstance(this, R.string.need_load_files, reload).show(getSupportFragmentManager(), "dialog");
 //            LoadDialog.newInstance(R.string.need_load_files).show(getFragmentManager(), "dialog");
         }
-    }
-
-    public void loadDialogLoadClick() {
-        new LoadSchemeAsync(this).execute();
     }
 
     @Override
     public void onSchemeLoadSuccess(File schemeFile) {
         try {
-            checkImageLoadStatus(schemeFile);
+            checkImageLoadStatus(schemeFile, reload);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,10 +80,12 @@ public class StartActivity extends AppCompatActivity
         showSchedule();
     }
 
-    private void checkImageLoadStatus(final File fileScheme) throws IOException {
+    private void checkImageLoadStatus(final File fileScheme, boolean reload) throws IOException {
         DataScheme scheme = JsonParser.getInstance(fileScheme).parseBaseModel();
         List<ScheduleItem> noImgItems = checkImages(scheme);
-        if (noImgItems.size() > 0){
+        if (reload) {
+            new LoadPDFsAsync(this, Arrays.asList(scheme.getScheduleItems())).execute();
+        } else if (noImgItems.size() > 0){
             new LoadPDFsAsync(this, noImgItems).execute();
         } else {
             showSchedule();
@@ -130,7 +126,6 @@ public class StartActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -143,13 +138,19 @@ public class StartActivity extends AppCompatActivity
         startActivity(new Intent(this, ScheduleListActivity.class));
     }
 
-    //CLICKS
-    public void loadDialogCancelClick() {
+    //DIALOG CLICKS
+    @Override
+    public void onLoadDialogLoadClick() {
+        new LoadSchemeAsync(this).execute();
+    }
+    @Override
+    public void onLoadDialogCancelClick() {
         loadBtn.setVisibility(View.VISIBLE);
     }
 
+    //ACTIVITY CLICKS
     public void startLoading(View view) {
-        initialize(true);
+        initialize();
     }
 
 

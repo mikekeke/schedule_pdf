@@ -10,4 +10,6 @@
     <string name="alert_dialog_cancel">Cancel</string>
     <string name="need_load_files">Files need to be loaded</string>
     <string name="action_reload_schedule">Reload files</string>
+    <string name="alert_dialog_reload">Reload</string>
+    <string name="back_to_chedule">Back to Schedule</string>
 </resources>

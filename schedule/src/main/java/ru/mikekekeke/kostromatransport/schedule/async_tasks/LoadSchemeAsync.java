@@ -13,7 +13,7 @@ import ru.mikekekeke.kostromatransport.schedule.utils.Loader;
 /**
  * Created by Mikekeke on 29-Mar-16.
  */
-public class LoadSchemeAsync extends AsyncTask<Void, Void, File> {
+public final class LoadSchemeAsync extends AsyncTask<Void, Void, File> {
 
     private LoadSchemeListener mListener;
     private ProgressDialog progressDialog;

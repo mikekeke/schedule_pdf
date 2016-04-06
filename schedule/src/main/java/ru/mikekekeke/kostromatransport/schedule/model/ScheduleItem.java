@@ -12,17 +12,17 @@ public final class ScheduleItem {
             + File.separatorChar;
 
     private String localImgPath;
-    private String type;
-    private int number;
+    private int type;
+    private String name;
     private String imageLink;
     private int date;
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public int getNumber() {
-        return number;
+    public String getName() {
+        return name;
     }
 
     public String getImageLink() {
@@ -31,14 +31,11 @@ public final class ScheduleItem {
 
     @Override
     public String toString() {
-        return type + " №" + number;
+        return name;
     }
 
     public String getLocalImgPath() {
-        return imgDirectory + getType() + getNumber() + ".pdf";
+        return imgDirectory + getName() + ".pdf";
     }
 
-    public void setLocalImgPath(String localImgPath) {
-        this.localImgPath = localImgPath;
-    }
 }

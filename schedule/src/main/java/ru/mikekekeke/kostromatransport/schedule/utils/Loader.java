@@ -11,7 +11,7 @@ import java.net.URL;
 /**
  * Created by Mikekeke on 03-Mar-16.
  */
-public class Loader {
+public final class Loader {
     public static final String RES_OK = "Ok";
     public static final String RES_ERR = "Error";
 

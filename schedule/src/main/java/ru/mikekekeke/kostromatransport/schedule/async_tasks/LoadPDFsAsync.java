@@ -15,7 +15,7 @@ import ru.mikekekeke.kostromatransport.schedule.utils.Loader;
 /**
  * Created by Mikekeke on 29-Mar-16.
  */
-public class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
+public final class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
 
     private LoadPDFsListener mListener;
     private Context context;
@@ -51,7 +51,7 @@ public class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
                 Loader.loadFile(
                         item.getImageLink(),
                         new File(ScheduleItem.imgDirectory,
-                                item.getType() + item.getNumber() + ".pdf")
+                                item.getName() + ".pdf")
                 );
                 publishProgress(i + 1);
             } catch (IOException e) {
