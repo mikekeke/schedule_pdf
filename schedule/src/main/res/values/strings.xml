@@ -1,16 +1,13 @@
 <resources>
     <string name="app_name">Kostroma Transport</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_pdf">PDFActivity</string>
-    <string name="pdf_zoom">zoom +</string>
-    <string name="reset_zoom">res</string>
     <string name="alert_dialog_load">Load</string>
     <string name="alert_dialog_cancel">Cancel</string>
-    <string name="need_load_files">Files need to be loaded</string>
+    <string name="need_load_files">Load files</string>
     <string name="action_reload_schedule">Reload files</string>
     <string name="alert_dialog_reload">Reload</string>
     <string name="back_to_chedule">Back to Schedule</string>
     <string name="loading_images">Loading images</string>
+    <string name="load_files_btn">Load files</string>
+    <string name="err_scheme_loading">Error loading scheme</string>
 </resources>

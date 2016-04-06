@@ -41,7 +41,7 @@ public class StartActivity extends AppCompatActivity
         File imgFolder = new File(ScheduleItem.imgDirectory);
         if (!imgFolder.exists()) imgFolder.mkdir();
 
-        feedbackTxt = (TextView) findViewById(R.id.mainTxt);
+        feedbackTxt = (TextView) findViewById(R.id.infoTxt);
         loadBtn = (Button) findViewById(R.id.buttonLoad);
         reload = getIntent().getBooleanExtra(RELOAD, false);
         initialize();
@@ -72,7 +72,8 @@ public class StartActivity extends AppCompatActivity
 
     @Override
     public void onSchemeLoadFail() {
-
+        feedbackTxt.setText(R.string.err_scheme_loading);
+        loadBtn.setVisibility(View.VISIBLE);
     }
 
     @Override

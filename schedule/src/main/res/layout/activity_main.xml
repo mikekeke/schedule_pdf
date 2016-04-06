@@ -10,11 +10,13 @@
 
     <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/mainTxt"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/infoTxt"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Load"
-            android:id="@+id/buttonLoad" android:onClick="startLoading" android:visibility="gone"/>
+            android:text="@string/load_files_btn"
+            android:id="@+id/buttonLoad" android:onClick="startLoading"
+            android:visibility="gone"/>
 
 </LinearLayout>

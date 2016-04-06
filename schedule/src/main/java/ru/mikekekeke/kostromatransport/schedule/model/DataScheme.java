@@ -17,19 +17,19 @@ public class DataScheme {
     final public static String TAG = DataScheme.class.getSimpleName();
     final public static String appFolder =
             Environment.getExternalStorageDirectory().getAbsolutePath()
-//                    + File.separatorChar
-//                    + "Android"
-//                    + File.separatorChar
-//                    + "data"
-//                    + File.separatorChar
-//                    + "ru.mikekekeke.kostromatransport.schedule"
-//                    + File.separatorChar;
-
                     + File.separatorChar
-                    + "Download"
+                    + "Android"
+                    + File.separatorChar
+                    + "data"
                     + File.separatorChar
                     + "ru.mikekekeke.kostromatransport.schedule"
                     + File.separatorChar;
+
+//                    + File.separatorChar
+//                    + "Download"
+//                    + File.separatorChar
+//                    + "ru.mikekekeke.kostromatransport.schedule"
+//                    + File.separatorChar;
 
 
 
