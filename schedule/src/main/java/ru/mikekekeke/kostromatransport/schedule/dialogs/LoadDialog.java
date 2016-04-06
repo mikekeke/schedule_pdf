@@ -6,14 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import ru.mikekekeke.kostromatransport.schedule.ScheduleListActivity;
-import ru.mikekekeke.kostromatransport.schedule.StartActivity;
 import ru.mikekekeke.kostromatransport.schedule.R;
+import ru.mikekekeke.kostromatransport.schedule.ScheduleListActivity;
 
 /**
  * Created by Mikekeke on 04-Mar-16.
  */
 public class LoadDialog extends android.support.v4.app.DialogFragment {
+    private static final String TITLE = "LoadDialog.TITLE";
+    private static final String RELOAD = "LoadDialog.RELOAD";
 
     private LoadDialogListener mListener;
 
@@ -26,21 +27,21 @@ public class LoadDialog extends android.support.v4.app.DialogFragment {
         LoadDialog frag = new LoadDialog();
         frag.setListener(listener);
         Bundle args = new Bundle();
-        args.putInt("title", title);
-        args.putBoolean("reload", reload);
+        args.putInt(TITLE, title);
+        args.putBoolean(RELOAD, reload);
         frag.setArguments(args);
         return frag;
     }
 
-    private void setListener(LoadDialogListener listener) {
+    private void setListener(final LoadDialogListener listener) {
         mListener = listener;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int title = getArguments().getInt("title");
-        final boolean reload = getArguments().getBoolean("reload");
+        int title = getArguments().getInt(TITLE);
+        final boolean reload = getArguments().getBoolean(RELOAD);
 
         return new AlertDialog.Builder(getActivity())
 //                .setIcon(R.drawable.alert_dialog_icon)

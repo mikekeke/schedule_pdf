@@ -50,14 +50,6 @@ public class DataScheme {
         return types;
     }
 
-    public List<String> getTypeNames() {
-        List <String> names = new ArrayList<String>();
-        for (Type type : types) {
-            names.add(type.getName());
-        }
-        return names;
-    }
-
     public ScheduleItem[] getScheduleItems(){
         return schedule_items;
     }

@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import ru.mikekekeke.kostromatransport.schedule.R;
+import ru.mikekekeke.kostromatransport.schedule.Settings;
 import ru.mikekekeke.kostromatransport.schedule.exceptions.FileLoadException;
 import ru.mikekekeke.kostromatransport.schedule.model.ScheduleItem;
 import ru.mikekekeke.kostromatransport.schedule.utils.Loader;
@@ -37,7 +39,7 @@ public final class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         pDial.setMax(noImgItems.size());
-        pDial.setTitle("Загрузка изображений");
+        pDial.setTitle(R.string.loading_images);
         pDial.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         pDial.show();
     }
@@ -51,7 +53,7 @@ public final class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
                 Loader.loadFile(
                         item.getImageLink(),
                         new File(ScheduleItem.imgDirectory,
-                                item.getName() + ".pdf")
+                                item.getName() + Settings.FILE_EXT)
                 );
                 publishProgress(i + 1);
             } catch (IOException e) {

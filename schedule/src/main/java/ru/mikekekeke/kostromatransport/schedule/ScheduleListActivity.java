@@ -1,14 +1,16 @@
 package ru.mikekekeke.kostromatransport.schedule;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TabHost;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,6 @@ import ru.mikekekeke.kostromatransport.schedule.model.Type;
 import ru.mikekekeke.kostromatransport.schedule.utils.JsonParser;
 
 public class ScheduleListActivity extends AppCompatActivity {
-    private LinearLayout rootList;
     private TabHost tabHost;
     public static final String TAG = ScheduleListActivity.class.getSimpleName();
 
@@ -101,7 +102,7 @@ public class ScheduleListActivity extends AppCompatActivity {
 
         private void showPDFDialog(final ScheduleItem item) {
             PDFDialog dialog = PDFDialog.creteInstance(item);
-            dialog.show(getSupportFragmentManager(), "TAG");
+            dialog.show(getSupportFragmentManager(), TAG);
         }
     }
 

@@ -2,6 +2,8 @@ package ru.mikekekeke.kostromatransport.schedule.model;
 
 import java.io.File;
 
+import ru.mikekekeke.kostromatransport.schedule.Settings;
+
 /**
  * Created by Mikekeke on 04-Mar-16.
  */
@@ -35,7 +37,7 @@ public final class ScheduleItem {
     }
 
     public String getLocalImgPath() {
-        return imgDirectory + getName() + ".pdf";
+        return imgDirectory + getName() + Settings.FILE_EXT;
     }
 
 }
