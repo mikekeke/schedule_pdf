@@ -1,6 +1,9 @@
 package ru.mikekekeke.kostromatransport.schedule;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -10,7 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,12 +102,30 @@ public class ScheduleListActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             ScheduleItem item =
                     (ScheduleItem) parent.getAdapter().getItem(position);
-            showPDFDialog(item);
+            if (Build.VERSION.SDK_INT >= 11) {
+                showPDFDialog(item);
+            } else {
+                openInExternalViewer(item);
+            }
         }
+    }
 
-        private void showPDFDialog(final ScheduleItem item) {
-            PDFDialog dialog = PDFDialog.creteInstance(item);
-            dialog.show(getSupportFragmentManager(), TAG);
+    private void showPDFDialog(final ScheduleItem item) {
+        PDFDialog dialog = PDFDialog.creteInstance(item);
+        dialog.show(getSupportFragmentManager(), TAG);
+    }
+
+    private void openInExternalViewer(final ScheduleItem item) {
+        Intent target = new Intent(Intent.ACTION_VIEW);
+        target.setDataAndType
+                (Uri.fromFile(new File(item.getLocalImgPath())),"application/pdf");
+        target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        Intent intent = Intent.createChooser(target, "Open File");
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.need_to_install_PDF_viewer, Toast.LENGTH_LONG).show();
         }
     }
 

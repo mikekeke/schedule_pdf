@@ -1,6 +1,10 @@
 package ru.mikekekeke.kostromatransport.schedule.dialogs;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.joanzapata.pdfview.PDFView;
 
@@ -81,7 +86,7 @@ public class PDFDialog extends DialogFragment{
                 .showMinimap(false)
                 .enableSwipe(true)
                 .load();
-        initOffsetX = pdfView.getCurrentXOffset();
-        initOffsetY = pdfView.getCurrentYOffset();
     }
+
+
 }

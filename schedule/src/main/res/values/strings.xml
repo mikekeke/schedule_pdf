@@ -10,4 +10,5 @@
     <string name="loading_images">Loading images</string>
     <string name="load_files_btn">Load files</string>
     <string name="err_scheme_loading">Error loading scheme</string>
+    <string name="need_to_install_PDF_viewer">Some PDF-viewer need to be installed</string>
 </resources>

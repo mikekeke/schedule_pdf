@@ -11,4 +11,5 @@
     <string name="need_load_files">Загрузка файлов</string>
     <string name="load_files_btn">Загрузить файлы</string>
     <string name="err_scheme_loading">Error loading scheme</string>
+    <string name="need_to_install_PDF_viewer">Нужно установить программу просмотра PDF</string>
 </resources>
