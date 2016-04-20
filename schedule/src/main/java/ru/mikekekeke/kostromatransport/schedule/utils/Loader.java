@@ -1,12 +1,16 @@
 package ru.mikekekeke.kostromatransport.schedule.utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import ru.mikekekeke.kostromatransport.schedule.Settings;
 import ru.mikekekeke.kostromatransport.schedule.exceptions.FileLoadException;
 import ru.mikekekeke.kostromatransport.schedule.model.DataScheme;
-
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  * Created by Mikekeke on 03-Mar-16.
@@ -39,15 +43,6 @@ public final class Loader {
         byte data[] = new byte[4096];
         int count;
         while ((count = input.read(data)) != -1) {
-            // allow canceling with back button
-//            if (isCancelled()) {
-//                input.close();
-//                return null;
-//            }
-//            total += count;
-            // publishing the progress....
-//            if (fileLength > 0) // only if total length is known
-//                publishProgress((int) (total * 100 / fileLength));
             output.write(data, 0, count);
         }
         return file;

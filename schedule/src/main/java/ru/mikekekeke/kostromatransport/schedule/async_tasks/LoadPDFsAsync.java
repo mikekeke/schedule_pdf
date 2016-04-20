@@ -56,9 +56,7 @@ public final class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
                                 item.getName() + Settings.FILE_EXT)
                 );
                 publishProgress(i + 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (FileLoadException e) {
+            } catch (IOException | FileLoadException e) {
                 e.printStackTrace();
             }
         }

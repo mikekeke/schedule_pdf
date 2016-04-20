@@ -1,5 +1,6 @@
 package ru.mikekekeke.kostromatransport.schedule.dialogs;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -25,7 +26,6 @@ public class LoadDialog extends android.support.v4.app.DialogFragment {
 
     public static LoadDialog newInstance(LoadDialogListener listener, final int title, final boolean reload) {
         LoadDialog frag = new LoadDialog();
-        frag.setListener(listener);
         Bundle args = new Bundle();
         args.putInt(TITLE, title);
         args.putBoolean(RELOAD, reload);
@@ -33,9 +33,7 @@ public class LoadDialog extends android.support.v4.app.DialogFragment {
         return frag;
     }
 
-    private void setListener(final LoadDialogListener listener) {
-        mListener = listener;
-    }
+
 
     @NonNull
     @Override
@@ -51,6 +49,7 @@ public class LoadDialog extends android.support.v4.app.DialogFragment {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 mListener.onLoadDialogLoadClick();
                                 dismiss();
+
                             }
                         }
                 )
@@ -67,6 +66,16 @@ public class LoadDialog extends android.support.v4.app.DialogFragment {
                         }
                 )
                 .create();
+    }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (LoadDialogListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+            + "must implement LoadDialogListener");
+        }
     }
 }
