@@ -19,6 +19,8 @@ import ru.mikekekeke.kostromatransport.schedule.utils.Loader;
  */
 public final class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
 
+    //todo move loader to service
+
     private LoadPDFsListener mListener;
     private Context context;
     List<ScheduleItem> noImgItems;
