@@ -1,13 +1,19 @@
 package ru.mikekekeke.kostromatransport.schedule;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import ru.mikekekeke.kostromatransport.schedule.async_tasks.LoadPDFsAsync;
 import ru.mikekekeke.kostromatransport.schedule.async_tasks.LoadSchemeAsync;
@@ -15,12 +21,6 @@ import ru.mikekekeke.kostromatransport.schedule.dialogs.LoadDialog;
 import ru.mikekekeke.kostromatransport.schedule.model.DataScheme;
 import ru.mikekekeke.kostromatransport.schedule.model.ScheduleItem;
 import ru.mikekekeke.kostromatransport.schedule.utils.JsonParser;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class StartActivity extends AppCompatActivity
                                 implements LoadSchemeAsync.LoadSchemeListener,
@@ -56,7 +56,7 @@ public class StartActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         } else {
-            LoadDialog.newInstance(this, R.string.need_load_files, reload).show(getSupportFragmentManager(), "dialog");
+            LoadDialog.newInstance(reload).show(getSupportFragmentManager(), "dialog");
 //            LoadDialog.newInstance(R.string.need_load_files).show(getFragmentManager(), "dialog");
         }
     }

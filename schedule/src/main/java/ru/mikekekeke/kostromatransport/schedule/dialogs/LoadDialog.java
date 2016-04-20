@@ -14,7 +14,6 @@ import ru.mikekekeke.kostromatransport.schedule.ScheduleListActivity;
  * Created by Mikekeke on 04-Mar-16.
  */
 public class LoadDialog extends android.support.v4.app.DialogFragment {
-    private static final String TITLE = "LoadDialog.TITLE";
     private static final String RELOAD = "LoadDialog.RELOAD";
 
     private LoadDialogListener mListener;
@@ -24,10 +23,9 @@ public class LoadDialog extends android.support.v4.app.DialogFragment {
         void onLoadDialogCancelClick();
     }
 
-    public static LoadDialog newInstance(LoadDialogListener listener, final int title, final boolean reload) {
+    public static LoadDialog newInstance(final boolean reload) {
         LoadDialog frag = new LoadDialog();
         Bundle args = new Bundle();
-        args.putInt(TITLE, title);
         args.putBoolean(RELOAD, reload);
         frag.setArguments(args);
         return frag;
@@ -38,12 +36,11 @@ public class LoadDialog extends android.support.v4.app.DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int title = getArguments().getInt(TITLE);
         final boolean reload = getArguments().getBoolean(RELOAD);
 
         return new AlertDialog.Builder(getActivity())
 //                .setIcon(R.drawable.alert_dialog_icon)
-                .setTitle(title)
+                .setTitle(R.string.need_load_files)
                 .setPositiveButton(reload ? R.string.alert_dialog_reload : R.string.alert_dialog_load,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
