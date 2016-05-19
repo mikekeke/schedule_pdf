@@ -13,13 +13,13 @@ import ru.mikekekeke.kostromatransport.schedule.utils.Loader;
 /**
  * Created by Mikekeke on 29-Mar-16.
  */
-public final class LoadSchemeAsync extends AsyncTask<Void, Void, File> {
+public final class LoadSchemeAsync extends AsyncTask<File, Void, File> {
 
     private LoadSchemeListener mListener;
     private ProgressDialog progressDialog;
 
     public interface LoadSchemeListener {
-        void onSchemeLoadSuccess(File schemeFile);
+        void onSchemeLoadSuccess();
         void onSchemeLoadFail();
     }
 
@@ -38,13 +38,14 @@ public final class LoadSchemeAsync extends AsyncTask<Void, Void, File> {
     }
 
     @Override
-    protected File doInBackground(Void... params) {
+    protected File doInBackground(File... fileArgs) {
         File dataFile = new File("");
+        if (fileArgs.length != 1) {
+            throw new IllegalStateException("Should be only one file to download. No more, no less.");
+        }
         try {
-            dataFile = Loader.loadDataScheme();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FileLoadException e) {
+            dataFile = Loader.loadDataScheme(fileArgs[0]);
+        } catch (IOException | FileLoadException e) {
             e.printStackTrace();
         }
         return dataFile;
@@ -53,7 +54,7 @@ public final class LoadSchemeAsync extends AsyncTask<Void, Void, File> {
     @Override
     protected void onPostExecute(final File dataFile) {
         if (dataFile.exists()){
-            mListener.onSchemeLoadSuccess(dataFile);
+            mListener.onSchemeLoadSuccess();
         } else {
             mListener.onSchemeLoadFail();
         }

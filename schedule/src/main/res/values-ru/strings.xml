@@ -6,7 +6,7 @@
     <string name="alert_dialog_cancel">Отмена</string>
     <string name="alert_dialog_load">Загрузить</string>
     <string name="alert_dialog_reload">Перезагрузить</string>
-    <string name="back_to_chedule">Назад к расписанию</string>
+    <string name="back_to_schedule">Назад к расписанию</string>
     <string name="loading_images">Загрузка изображений</string>
     <string name="need_load_files">Загрузка файлов</string>
     <string name="load_files_btn">Загрузить файлы</string>

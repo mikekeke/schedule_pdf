@@ -9,7 +9,7 @@ import ru.mikekekeke.kostromatransport.schedule.Settings;
  */
 public final class ScheduleItem {
     public static final String imgDirectory =
-            DataScheme.appFolder
+            DataScheme.APP_FOLDER
             + "img"
             + File.separatorChar;
 
@@ -33,6 +33,7 @@ public final class ScheduleItem {
 
     @Override
     public String toString() {
+
         return name;
     }
 

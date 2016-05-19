@@ -33,7 +33,7 @@ public class PDFDialog extends DialogFragment{
     private static final String TITLE = "TITLE";
 
     private PDFView pdfView;
-    private TextView title, closeTv;
+    private TextView title;
     private float initOffsetX, initOffsetY;
 
     public static PDFDialog creteInstance(final ScheduleItem item) {
@@ -61,8 +61,7 @@ public class PDFDialog extends DialogFragment{
         pdfView = (PDFView) v.findViewById(R.id.pdfView);
         title = (TextView) v.findViewById(R.id.pdfTitleTv);
         title.setText(getArguments().getString(TITLE));
-        closeTv = (TextView) v.findViewById(R.id.closeTv);
-        closeTv.setOnClickListener(new View.OnClickListener() {
+        ((TextView) v.findViewById(R.id.closeTv)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PDFDialog.this.dismiss();

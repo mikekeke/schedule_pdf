@@ -6,7 +6,7 @@
     <string name="need_load_files">Load files</string>
     <string name="action_reload_schedule">Reload files</string>
     <string name="alert_dialog_reload">Reload</string>
-    <string name="back_to_chedule">Back to Schedule</string>
+    <string name="back_to_schedule">Back to Schedule</string>
     <string name="loading_images">Loading images</string>
     <string name="load_files_btn">Load files</string>
     <string name="err_scheme_loading">Error loading scheme</string>

@@ -50,7 +50,7 @@ public class LoadDialog extends android.support.v4.app.DialogFragment {
                             }
                         }
                 )
-                .setNegativeButton(reload ? R.string.back_to_chedule : R.string.alert_dialog_cancel,
+                .setNegativeButton(reload ? R.string.back_to_schedule : R.string.alert_dialog_cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 if (reload){

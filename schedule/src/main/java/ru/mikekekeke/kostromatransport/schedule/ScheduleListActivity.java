@@ -34,7 +34,7 @@ public class ScheduleListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!DataScheme.schemeFile.exists()){
+        if (!getFileStreamPath(DataScheme.SCHEME_FILE).exists()){
             startActivity(new Intent(this, StartActivity.class));
             finish();
         } else {
@@ -48,7 +48,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         tabHost.setup();
         try {
             DataScheme model =
-                    JsonParser.getInstance(DataScheme.schemeFile).parseBaseModel();
+                    JsonParser.getInstance(getFileStreamPath(DataScheme.SCHEME_FILE)).parseBaseModel();
             populateList(model);
             model.print();
         } catch (IOException e) {

@@ -10,7 +10,6 @@ import java.net.URL;
 
 import ru.mikekekeke.kostromatransport.schedule.Settings;
 import ru.mikekekeke.kostromatransport.schedule.exceptions.FileLoadException;
-import ru.mikekekeke.kostromatransport.schedule.model.DataScheme;
 
 /**
  * Created by Mikekeke on 03-Mar-16.
@@ -24,9 +23,8 @@ public final class Loader {
 
     }
 
-    public static File loadDataScheme() throws IOException, FileLoadException {
-        File jsonFile = loadFile(Settings.JSON_LINK,
-                new File(DataScheme.appFolder, Settings.JSON_FILE));
+    public static File loadDataScheme(File file) throws IOException, FileLoadException {
+        File jsonFile = loadFile(Settings.JSON_LINK ,file);
         if (!jsonFile.exists()) {
             throw new FileLoadException("JSON scheme file does not exists!");
         }
@@ -35,7 +33,7 @@ public final class Loader {
     }
 
     public static File loadFile(final String mUrl, final File file) throws IOException, FileLoadException {
-//        File jsonFile = new File(DataScheme.appFolder,fileName );
+//        File jsonFile = new File(DataScheme.APP_FOLDER,fileName );
         HttpURLConnection conn = getConnection(mUrl);
         final InputStream input = conn.getInputStream();
         final OutputStream output = new FileOutputStream(file);

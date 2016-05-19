@@ -31,12 +31,13 @@ public class StartActivity extends AppCompatActivity
     Button loadBtn;
     TextView feedbackTxt;
     private boolean reload;
+    private File mSchemeFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        File appFolder = new File(DataScheme.appFolder);
+        File appFolder = new File(DataScheme.APP_FOLDER);
         if (!appFolder.exists()) appFolder.mkdir();
         File imgFolder = new File(ScheduleItem.imgDirectory);
         if (!imgFolder.exists()) imgFolder.mkdir();
@@ -44,14 +45,14 @@ public class StartActivity extends AppCompatActivity
         feedbackTxt = (TextView) findViewById(R.id.infoTxt);
         loadBtn = (Button) findViewById(R.id.buttonLoad);
         reload = getIntent().getBooleanExtra(RELOAD, false);
+        mSchemeFile = getFileStreamPath(DataScheme.SCHEME_FILE);
         initialize();
         }
 
     private void initialize() {
-        File fileScheme = DataScheme.schemeFile;
-        if (fileScheme.exists() && !reload){
+        if (mSchemeFile.exists() && !reload){
             try {
-                checkImageLoadStatus(fileScheme, false);
+                checkImageLoadStatus(mSchemeFile, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,9 +63,9 @@ public class StartActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSchemeLoadSuccess(File schemeFile) {
+    public void onSchemeLoadSuccess() {
         try {
-            checkImageLoadStatus(schemeFile, reload);
+            checkImageLoadStatus(mSchemeFile, reload);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -131,8 +132,7 @@ public class StartActivity extends AppCompatActivity
     }
 
     private void showSchedule() {
-        File dataScheme = new File(DataScheme.appFolder, Settings.JSON_FILE);
-        if (!dataScheme.exists()){
+        if (mSchemeFile.exists()){
             //todo report file not exists
             return;
         }
@@ -142,7 +142,7 @@ public class StartActivity extends AppCompatActivity
     //DIALOG CLICKS
     @Override
     public void onLoadDialogLoadClick() {
-        new LoadSchemeAsync(this).execute();
+        new LoadSchemeAsync(this).execute(mSchemeFile);
     }
     @Override
     public void onLoadDialogCancelClick() {

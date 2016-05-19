@@ -4,18 +4,16 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
-import java.util.*;
 
-import android.util.SparseArray;
 import ru.mikekekeke.kostromatransport.schedule.Settings;
 
 /**
  * Created by Mikekeke on 03-Mar-16.
  */
-public class DataScheme {
+public final class DataScheme {
 
     final public static String TAG = DataScheme.class.getSimpleName();
-    final public static String appFolder =
+    final public static String APP_FOLDER =
             Environment.getExternalStorageDirectory().getAbsolutePath()
                     + File.separatorChar
                     + "Android"
@@ -32,11 +30,12 @@ public class DataScheme {
 
 
 
-    final public static File schemeFile = new File(DataScheme.appFolder, Settings.JSON_FILE);
+//    final public static File SCHEME_FILE = new File(DataScheme.APP_FOLDER, Settings.JSON_FILE);
+    final public static String SCHEME_FILE = Settings.JSON_FILE;
 
-    int version;
-    Type[] types;
-    ScheduleItem[] schedule_items;
+    private int version;
+    private Type[] types;
+    private ScheduleItem[] schedule_items;
 
     public void print(){
         Log.i(TAG, "version: " + version);
