@@ -3,6 +3,7 @@ package ru.mikekekeke.kostromatransport.schedule.async_tasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import ru.mikekekeke.kostromatransport.schedule.utils.Loader;
  * Created by Mikekeke on 29-Mar-16.
  */
 public final class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
+    private static final String TAG = LoadPDFsAsync.class.getSimpleName();
 
     //todo move loader to service
 
@@ -59,7 +61,7 @@ public final class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
                 );
                 publishProgress(i + 1);
             } catch (IOException | FileLoadException e) {
-                e.printStackTrace();
+                Log.e(TAG, "doInBackground: ", e);
             }
         }
         return null;
