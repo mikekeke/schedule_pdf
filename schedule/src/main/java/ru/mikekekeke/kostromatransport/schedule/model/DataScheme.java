@@ -13,22 +13,6 @@ import ru.mikekekeke.kostromatransport.schedule.Settings;
 public final class DataScheme {
 
     final public static String TAG = DataScheme.class.getSimpleName();
-    final public static String APP_FOLDER =
-            Environment.getExternalStorageDirectory().getAbsolutePath()
-                    + File.separatorChar
-                    + "Android"
-                    + File.separatorChar
-                    + "data"
-                    + File.separatorChar
-                    + "ru.mikekekeke.kostromatransport.schedule"
-                    + File.separatorChar;
-
-//                    + File.separatorChar
-//                    + "KosTransport"
-//                    + File.separatorChar;
-
-
-
 
 //    final public static File SCHEME_FILE = new File(DataScheme.APP_FOLDER, Settings.JSON_FILE);
     final public static String SCHEME_FILE = Settings.JSON_FILE;

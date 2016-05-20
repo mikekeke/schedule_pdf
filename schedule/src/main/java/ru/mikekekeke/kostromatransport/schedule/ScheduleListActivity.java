@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,14 +28,17 @@ import ru.mikekekeke.kostromatransport.schedule.model.Type;
 import ru.mikekekeke.kostromatransport.schedule.utils.JsonParser;
 
 public class ScheduleListActivity extends AppCompatActivity {
-    private TabHost tabHost;
     public static final String TAG = ScheduleListActivity.class.getSimpleName();
+    private TabHost tabHost;
+    private File mSchemeFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!getFileStreamPath(DataScheme.SCHEME_FILE).exists()){
+       mSchemeFile = new File(getFilesDir() + File.pathSeparator + DataScheme.SCHEME_FILE);
+        Log.d(TAG, "onCreate: " + mSchemeFile.exists());
+        if (!mSchemeFile.exists()){
             startActivity(new Intent(this, StartActivity.class));
             finish();
         } else {
@@ -48,7 +52,7 @@ public class ScheduleListActivity extends AppCompatActivity {
         tabHost.setup();
         try {
             DataScheme model =
-                    JsonParser.getInstance(getFileStreamPath(DataScheme.SCHEME_FILE)).parseBaseModel();
+                    JsonParser.getInstance(mSchemeFile).parseBaseModel();
             populateList(model);
             model.print();
         } catch (IOException e) {
@@ -118,7 +122,7 @@ public class ScheduleListActivity extends AppCompatActivity {
     private void openInExternalViewer(final ScheduleItem item) {
         Intent target = new Intent(Intent.ACTION_VIEW);
         target.setDataAndType
-                (Uri.fromFile(new File(item.getLocalImgPath())),"application/pdf");
+                (Uri.fromFile(new File(item.getImgName())),"application/pdf");
         target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
         Intent intent = Intent.createChooser(target, "Open File");

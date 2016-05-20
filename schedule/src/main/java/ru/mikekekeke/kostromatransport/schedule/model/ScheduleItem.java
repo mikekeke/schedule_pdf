@@ -8,10 +8,6 @@ import ru.mikekekeke.kostromatransport.schedule.Settings;
  * Created by Mikekeke on 04-Mar-16.
  */
 public final class ScheduleItem {
-    public static final String imgDirectory =
-            DataScheme.APP_FOLDER
-            + "img"
-            + File.separatorChar;
 
     private String localImgPath;
     private int type;
@@ -37,8 +33,8 @@ public final class ScheduleItem {
         return name;
     }
 
-    public String getLocalImgPath() {
-        return imgDirectory + getName() + Settings.FILE_EXT;
+    public String getImgName() {
+        return getName() + Settings.FILE_EXT;
     }
 
 }

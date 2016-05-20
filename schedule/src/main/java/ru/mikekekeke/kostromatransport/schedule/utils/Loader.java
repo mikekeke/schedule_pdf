@@ -23,13 +23,11 @@ public final class Loader {
 
     }
 
-    public static File loadDataScheme(File file) throws IOException, FileLoadException {
+    public static void loadDataScheme(File file) throws IOException, FileLoadException {
         File jsonFile = loadFile(Settings.JSON_LINK ,file);
         if (!jsonFile.exists()) {
-            throw new FileLoadException("JSON scheme file does not exists!");
+            throw new FileLoadException("JSON scheme file was not loaded!");
         }
-
-        return jsonFile;
     }
 
     public static File loadFile(final String mUrl, final File file) throws IOException, FileLoadException {

@@ -13,10 +13,10 @@ import ru.mikekekeke.kostromatransport.schedule.utils.Loader;
 /**
  * Created by Mikekeke on 29-Mar-16.
  */
-public final class LoadSchemeAsync extends AsyncTask<File, Void, File> {
+public final class LoadSchemeAsync extends AsyncTask<File, Void, Boolean> {
 
     private LoadSchemeListener mListener;
-    private ProgressDialog progressDialog;
+    private ProgressDialog mprogressDialogP;
 
     public interface LoadSchemeListener {
         void onSchemeLoadSuccess();
@@ -25,39 +25,41 @@ public final class LoadSchemeAsync extends AsyncTask<File, Void, File> {
 
     public LoadSchemeAsync (LoadSchemeListener context) {
         mListener = context;
-        progressDialog = new ProgressDialog((Context) context);
+        mprogressDialogP = new ProgressDialog((Context) context);
     }
 
 
     @Override
     protected void onPreExecute() {
-        progressDialog.setTitle("Загрузка структуры");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
+        mprogressDialogP.setTitle("Загрузка структуры");
+        mprogressDialogP.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mprogressDialogP.setIndeterminate(true);
+        mprogressDialogP.show();
     }
 
     @Override
-    protected File doInBackground(File... fileArgs) {
-        File dataFile = new File("");
+    protected Boolean doInBackground(File... fileArgs) {
         if (fileArgs.length != 1) {
-            throw new IllegalStateException("Should be only one file to download. No more, no less.");
+            throw new IllegalArgumentException("Should be only one file to download. No more, no less.");
         }
+        boolean fileLoaded;
         try {
-            dataFile = Loader.loadDataScheme(fileArgs[0]);
+            Loader.loadDataScheme(fileArgs[0]);
+            fileLoaded = true;
         } catch (IOException | FileLoadException e) {
+            fileLoaded = false;
             e.printStackTrace();
         }
-        return dataFile;
+        return fileLoaded;
     }
 
     @Override
-    protected void onPostExecute(final File dataFile) {
-        if (dataFile.exists()){
+    protected void onPostExecute(final Boolean fileLoaded) {
+        if (fileLoaded){
             mListener.onSchemeLoadSuccess();
         } else {
             mListener.onSchemeLoadFail();
         }
-        progressDialog.dismiss();
+        mprogressDialogP.dismiss();
     }
 }

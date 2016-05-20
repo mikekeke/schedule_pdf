@@ -1,10 +1,8 @@
 package ru.mikekekeke.kostromatransport.schedule.dialogs;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.joanzapata.pdfview.PDFView;
 
@@ -29,26 +26,35 @@ import ru.mikekekeke.kostromatransport.schedule.model.ScheduleItem;
  */
 public class PDFDialog extends DialogFragment{
 
-    private static final String FILE = "FILE";
+    private static final String IMAGE = "IMAGE";
     private static final String TITLE = "TITLE";
 
     private PDFView pdfView;
     private TextView title;
+    private Context mContext;
     private float initOffsetX, initOffsetY;
 
     public static PDFDialog creteInstance(final ScheduleItem item) {
         PDFDialog dialog = new PDFDialog();
+
         dialog.setCancelable(true);
         Bundle args = new Bundle();
-        args.putString(FILE, item.getLocalImgPath());
+        args.putString(IMAGE, item.getImgName());
         args.putString(TITLE, item.toString());
         dialog.setArguments(args);
         return dialog;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mContext = activity;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         Dialog dialog = new Dialog(getActivity(), R.style.FullscreenDialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
@@ -61,7 +67,7 @@ public class PDFDialog extends DialogFragment{
         pdfView = (PDFView) v.findViewById(R.id.pdfView);
         title = (TextView) v.findViewById(R.id.pdfTitleTv);
         title.setText(getArguments().getString(TITLE));
-        ((TextView) v.findViewById(R.id.closeTv)).setOnClickListener(new View.OnClickListener() {
+        v.findViewById(R.id.closeTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PDFDialog.this.dismiss();
@@ -80,12 +86,10 @@ public class PDFDialog extends DialogFragment{
     private void loadPDF() {
         Bundle args = getArguments();
         Log.d("_tt", args.toString());
-        File pdfFile = new File(args.getString(FILE));
+        File pdfFile = new File(mContext.getFilesDir(), args.getString(IMAGE));
         pdfView.fromFile(pdfFile)
                 .showMinimap(false)
                 .enableSwipe(true)
                 .load();
     }
-
-
 }

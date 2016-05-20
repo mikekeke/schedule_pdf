@@ -27,6 +27,7 @@ public class StartActivity extends AppCompatActivity
                                             LoadPDFsAsync.LoadPDFsListener,
         LoadDialog.LoadDialogListener{
 
+    private static final String TAG = StartActivity.class.getSimpleName();
     public static final String RELOAD = "ru.mikekekeke.kostromatransport.RELOAD";
     Button loadBtn;
     TextView feedbackTxt;
@@ -37,15 +38,12 @@ public class StartActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        File appFolder = new File(DataScheme.APP_FOLDER);
-        if (!appFolder.exists()) appFolder.mkdir();
-        File imgFolder = new File(ScheduleItem.imgDirectory);
-        if (!imgFolder.exists()) imgFolder.mkdir();
 
         feedbackTxt = (TextView) findViewById(R.id.infoTxt);
         loadBtn = (Button) findViewById(R.id.buttonLoad);
         reload = getIntent().getBooleanExtra(RELOAD, false);
-        mSchemeFile = getFileStreamPath(DataScheme.SCHEME_FILE);
+        mSchemeFile = new File(getFilesDir() + File.pathSeparator + DataScheme.SCHEME_FILE);
+
         initialize();
         }
 
@@ -102,7 +100,7 @@ public class StartActivity extends AppCompatActivity
     private List<ScheduleItem> checkImages(final DataScheme scheme) {
         List<ScheduleItem> noImgItems = new ArrayList<ScheduleItem>();
         for (ScheduleItem item : scheme.getScheduleItems()){
-            String path = item.getLocalImgPath();
+            String path = item.getImgName();
             if (!new File(path).exists()) {
                 noImgItems.add(item);
             }

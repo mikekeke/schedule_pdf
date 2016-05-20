@@ -54,7 +54,7 @@ public final class LoadPDFsAsync extends AsyncTask<Void, Integer, Void> {
             try {
                 Loader.loadFile(
                         item.getImageLink(),
-                        new File(ScheduleItem.imgDirectory,
+                        new File(context.getFilesDir(),
                                 item.getName() + Settings.FILE_EXT)
                 );
                 publishProgress(i + 1);
