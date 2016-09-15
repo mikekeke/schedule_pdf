@@ -1,9 +1,6 @@
 package ru.mikekekeke.kostromatransport.schedule.model;
 
-import android.os.Environment;
 import android.util.Log;
-
-import java.io.File;
 
 import ru.mikekekeke.kostromatransport.schedule.Settings;
 
@@ -24,6 +21,7 @@ public final class DataScheme {
     public void print(){
         Log.i(TAG, "version: " + version);
 //        Log.i(TAG, "types: " + Arrays.toString(types));
+        Log.i(TAG, "items num: " + schedule_items.length);
         Log.i(TAG, "items num: " + schedule_items.length);
     }
 
