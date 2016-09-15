@@ -22,7 +22,6 @@ public final class DataScheme {
         Log.i(TAG, "version: " + version);
 //        Log.i(TAG, "types: " + Arrays.toString(types));
         Log.i(TAG, "items num: " + schedule_items.length);
-        Log.i(TAG, "items num: " + schedule_items.length);
     }
 
     public Type[] getTypes() {
