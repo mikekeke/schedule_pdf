@@ -9,5 +9,7 @@ public final class Settings {
     public static final String JSON_FILE = "model.json";
     public static final String JSON_LINK = "http://pastebin.com/raw/Kt2TwPrA";
     public static final String FILE_EXT = ".pdf";
+    public static final String FILE_EXTT = ".pdf";
+    public static final String FILE_EXTTT = ".pdf";
 
 }
