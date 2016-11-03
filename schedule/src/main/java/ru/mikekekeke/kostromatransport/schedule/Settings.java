@@ -11,6 +11,7 @@ public final class Settings {
     public static final String FILE_EXT = ".pdf";
     public static final String ssFILE_EXT = ".pdf";
     public static final String dd = ".pdf";
-    public static final String dd2 = ".pdf";
+    public static final String ddd = ".pdf";
+    public static final String dddd = ".pdf";
 
 }
